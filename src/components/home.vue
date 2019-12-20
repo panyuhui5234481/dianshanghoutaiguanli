@@ -13,7 +13,7 @@
         <div class="toggle-button" @click="lashen">|||</div>
         <el-row class="tac">
           <el-col :span="12" class="asidestyle">
-            <el-menu default-active="2" class="el-menu-vertical-demo" background-color="#545c64" unique-opened :collapse="iscoll" :collapse-transition="false">
+            <el-menu class="el-menu-vertical-demo" background-color="#545c64" unique-opened :collapse="iscoll" :collapse-transition="false" router :default-active="activepath">
               <!-- 一级菜单 -->
               <el-submenu :index="item.id + ''" v-for="item in caidan" :key="item.id">
                 <template slot="title">
@@ -21,7 +21,7 @@
                   <span>{{ item.authName }}</span>
                 </template>
                 <!-- 二级菜单 -->
-                <el-menu-item :index="item2.id + ''" v-for="item2 in item.children" :key="item2.id">
+                <el-menu-item :index="item2.path + ''" v-for="item2 in item.children" :key="item2.id" @click="savestate(item2.path)">
                   <i :class="tubiao.cha"></i>
                   {{ item2.authName }}
                 </el-menu-item>
@@ -50,11 +50,13 @@ export default {
         '145': 'iconfont icon-baobiao',
         cha: 'iconfont icon-tijikongjian'
       },
-      iscoll: false
+      iscoll: false,
+      activepath: ''
     }
   },
   created() {
     this.getlist()
+    this.activepath = window.sessionStorage.getItem('activepath')
   },
   methods: {
     out() {
@@ -74,6 +76,10 @@ export default {
     // 拉伸与折叠导航栏
     lashen() {
       this.iscoll = !this.iscoll
+    },
+    // 保存连接激活状态
+    savestate(key) {
+      window.sessionStorage.setItem('activepath', key)
     }
   }
 }
