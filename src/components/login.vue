@@ -3,7 +3,7 @@
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
-        <img src="../assets/logo.png" alt="" />
+        <img src="../assets/img/u=446745173,1825858413&fm=26&gp=0[1].jpg" alt="" />
       </div>
       <!-- 表单区域 -->
       <el-form label-width="0px" class="login_form" :model="formInline" :rules="rules" ref="loginForm">
@@ -84,8 +84,8 @@ export default {
   background-color: #fff;
   border-radius: 3px;
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   .avatar_box {
     position: absolute;
