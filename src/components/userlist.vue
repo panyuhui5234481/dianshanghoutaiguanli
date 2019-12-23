@@ -42,7 +42,7 @@
               <el-button type="danger" icon="el-icon-delete" size="small" @click="deleteuser(scope.row.id)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false" transition="liner">
-              <el-button type="warning" icon="el-icon-setting" size="small"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="small" @click="showfenpei(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -102,6 +102,23 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="editdialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="edituser(editForm.id)">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 分配角色对话框 -->
+    <el-dialog title="分配角色" :visible.sync="fenpeijuese" width="50%" @close="saverolesclose">
+      <div>
+        <p>当前的用户:{{ userInfo.username }}</p>
+        <p>当前的角色:{{ userInfo.role_name }}</p>
+        <p>
+          分配新角色:
+          <el-select v-model="selectedrole" placeholder="请选择角色">
+            <el-option v-for="item in rolelist" :key="item.id" :label="item.roleName" :value="item.id"> </el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="fenpeijuese = false">取 消</el-button>
+        <el-button type="primary" @click="savefenpei">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -164,7 +181,12 @@ export default {
           }
         ]
       },
-      editdialogVisible: false
+      editdialogVisible: false,
+      fenpeijuese: false,
+      userInfo: {},
+      rolelist: [],
+      // 已选中的角色id值
+      selectedrole: ''
     }
   },
   created() {
@@ -270,6 +292,42 @@ export default {
         this.$message.success('用户删除成功')
         this.getuserlist()
       })
+    },
+    // 打开分配角色对话框
+    showfenpei(user) {
+      this.userInfo = user
+      // 获取所有角色列表
+      this.$http.get('roles').then(res => {
+        if (res.data.meta.status !== 200) {
+          this.$message.error('获取角色列表失败')
+          return false
+        }
+        this.rolelist = res.data.data
+      })
+      this.fenpeijuese = true
+    },
+    // 点击按钮分配角色
+    savefenpei() {
+      if (!this.selectedrole) {
+        return this.$message.error('请选择要分配的角色')
+      }
+      this.$http
+        .put(`users/${this.userInfo.id}/role`, {
+          rid: this.selectedrole
+        })
+        .then(res => {
+          if (res.data.meta.status !== 200) {
+            return this.$message.error('分配角色失败')
+          }
+          this.$message.success('分配角色成功')
+          this.getuserlist()
+          this.fenpeijuese = false
+        })
+    },
+    // 监听分配角色框关闭
+    saverolesclose() {
+      this.selectedrole = ''
+      this.userInfo = {}
     }
   }
 }
