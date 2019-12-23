@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router.js'
-import ElementUI, { Message } from 'element-ui'
+import ElementUI, { Message, MessageBox } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
@@ -17,6 +17,7 @@ axios.interceptors.request.use(config => {
 })
 Vue.prototype.$http = axios
 Vue.prototype.$message = Message
+Vue.prototype.$comfirm = MessageBox.confirm
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 new Vue({
