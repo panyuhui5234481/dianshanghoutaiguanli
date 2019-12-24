@@ -145,7 +145,7 @@ export default {
         userform: '',
         password: '',
         email: '',
-        form: ''
+        mobile: ''
       },
       // 修改用户表单
       editForm: {
@@ -236,7 +236,7 @@ export default {
     adduser() {
       this.$refs.addruleForm.validate(valid => {
         if (!valid) return
-        this.$http.post('users', this.editForm).then(res => {
+        this.$http.post('users', this.addForm).then(res => {
           if (res.data.meta.status !== 201) {
             this.$message.error('添加用户失败')
           } else {
@@ -290,6 +290,10 @@ export default {
           return this.$message.error('删除用户失败')
         }
         this.$message.success('用户删除成功')
+        // 如果当前最后一页只有一条数据我们点击删除,也就是this.userlist==0时,需要使他的当前页码往前跳一页再进行渲染
+        if (this.userlist.length === 1) {
+          this.queryInfo.pagenum -= 1
+        }
         this.getuserlist()
       })
     },
