@@ -390,3 +390,7 @@
 [2019-12-24T08:38:45.860] [DEBUG] cheese - admin
 [2019-12-24T08:38:45.888] [DEBUG] cheese - null
 [2019-12-24T08:38:45.889] [DEBUG] cheese - null
+[2019-12-25T10:21:24.785] [DEBUG] cheese - login => username:admin,password:123456
+[2019-12-25T10:21:24.786] [DEBUG] cheese - admin
+[2019-12-25T10:21:24.800] [DEBUG] cheese - null
+[2019-12-25T10:21:24.801] [DEBUG] cheese - null
