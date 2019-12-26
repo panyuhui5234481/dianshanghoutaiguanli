@@ -129,7 +129,7 @@ export default {
       cateprops: { expandTrigger: 'hover', value: 'cat_id', label: 'cat_name', children: 'children' },
       //   级联选择框双向绑定的数组
       seletekeys: [],
-      //   选项卡当前数据
+      // 选项卡当前数据
       // 被激活的页签名称
       activeName: 'many',
       dongparams: [],
