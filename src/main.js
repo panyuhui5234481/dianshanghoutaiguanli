@@ -13,9 +13,15 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+// timeline
+import Timeline from './assets/js/timeline/index.js'
+import TimelineItem from './assets/js/timeline-item/index.js'
 
 Vue.use(VueQuillEditor)
 Vue.use(ZkTable)
+
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 // 配置请求根路径
 axios.defaults.baseURL = `http://127.0.0.1:8888/api/private/v1/`
 // axios拦截器
