@@ -15,7 +15,7 @@
         </el-col>
       </el-row>
       <!-- 角色列表区 -->
-      <el-table :data="roleslist" stripe style="width: 90%" border>
+      <el-table :data="roleslist" stripe style="width: 90%" border row-key="id" :tree-props="{ children: null, hasChildren: null }">
         <!-- 展开列 -->
         <el-table-column type="expand">
           <template slot-scope="scope">
@@ -94,7 +94,6 @@ export default {
         if (res.data.meta.status !== 200) {
           return this.$message.error('获取角色列表失败')
         } else {
-          console.log(res.data)
           this.roleslist = res.data.data
         }
       })
